@@ -19,8 +19,8 @@ import (
 
 	"git.fd.io/govpp.git/adapter/mock"
 	"git.fd.io/govpp.git/api"
-	"git.fd.io/govpp.git/core/bin_api/vpe"
-	"git.fd.io/govpp.git/examples/bin_api/interfaces"
+	"git.fd.io/govpp.git/vedge/bin_api/vpe"
+	"git.fd.io/govpp.git/vedge/bin_api/interfaces"
 
 	. "github.com/onsi/gomega"
 )

@@ -22,7 +22,7 @@ import (
 	logger "github.com/Sirupsen/logrus"
 
 	"git.fd.io/govpp.git/api"
-	"git.fd.io/govpp.git/core/bin_api/vpe"
+	"git.fd.io/govpp.git/vedge/bin_api/vpe"
 )
 
 // watchRequests watches for requests on the request API channel and forwards them as messages to VPP.

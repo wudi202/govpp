@@ -22,10 +22,9 @@ import (
 	"git.fd.io/govpp.git/adapter/mock"
 	"git.fd.io/govpp.git/api"
 	"git.fd.io/govpp.git/core"
-	"git.fd.io/govpp.git/core/bin_api/vpe"
-	"git.fd.io/govpp.git/examples/bin_api/interfaces"
-	"git.fd.io/govpp.git/examples/bin_api/memif"
-	"git.fd.io/govpp.git/examples/bin_api/tap"
+	"git.fd.io/govpp.git/vedge/bin_api/vpe"
+	"git.fd.io/govpp.git/vedge/bin_api/interfaces"
+	"git.fd.io/govpp.git/vedge/bin_api/tap"
 
 	. "github.com/onsi/gomega"
 )
@@ -132,64 +131,6 @@ func TestRequestReplySwInterfaceTapDump(t *testing.T) {
 	Expect(err).ShouldNot(HaveOccurred())
 	Expect(reply.SwIfIndex).To(BeEquivalentTo(25), "Incorrect SwIfIndex value for SwInterfaceTapDetails")
 	Expect(reply.DevName).ToNot(BeNil(), "Incorrect DevName value for SwInterfaceTapDetails")
-}
-
-func TestRequestReplyMemifCreate(t *testing.T) {
-	ctx := setupTest(t)
-	defer ctx.teardownTest()
-
-	ctx.mockVpp.MockReply(&memif.MemifCreateReply{
-		Retval:    22,
-		SwIfIndex: 4,
-	})
-	request := &memif.MemifCreate{
-		Role:       10,
-		ID:         12,
-		RingSize:   8000,
-		BufferSize: 50,
-	}
-	reply := &memif.MemifCreateReply{}
-
-	err := ctx.ch.SendRequest(request).ReceiveReply(reply)
-	Expect(err).ShouldNot(HaveOccurred())
-	Expect(reply.Retval).To(BeEquivalentTo(22), "Incorrect Retval value for MemifCreate")
-	Expect(reply.SwIfIndex).To(BeEquivalentTo(4), "Incorrect SwIfIndex value for MemifCreate")
-}
-
-func TestRequestReplyMemifDelete(t *testing.T) {
-	ctx := setupTest(t)
-	defer ctx.teardownTest()
-
-	ctx.mockVpp.MockReply(&memif.MemifDeleteReply{
-		Retval: 24,
-	})
-	request := &memif.MemifDelete{
-		SwIfIndex: 15,
-	}
-	reply := &memif.MemifDeleteReply{}
-
-	err := ctx.ch.SendRequest(request).ReceiveReply(reply)
-	Expect(err).ShouldNot(HaveOccurred())
-	Expect(reply.Retval).To(BeEquivalentTo(24), "Incorrect Retval value for MemifDelete")
-}
-
-func TestRequestReplyMemifDetails(t *testing.T) {
-	ctx := setupTest(t)
-	defer ctx.teardownTest()
-
-	ctx.mockVpp.MockReply(&memif.MemifDetails{
-		SwIfIndex: 25,
-		IfName:    []byte("memif-name"),
-		Role:      0,
-	})
-	request := &memif.MemifDump{}
-	reply := &memif.MemifDetails{}
-
-	err := ctx.ch.SendRequest(request).ReceiveReply(reply)
-	Expect(err).ShouldNot(HaveOccurred())
-	Expect(reply.SwIfIndex).To(BeEquivalentTo(25), "Incorrect SwIfIndex value for MemifDetails")
-	Expect(reply.IfName).ToNot(BeEmpty(), "MemifDetails IfName is empty byte array")
-	Expect(reply.Role).To(BeEquivalentTo(0), "Incorrect Role value for MemifDetails")
 }
 
 func TestMultiRequestReplySwInterfaceTapDump(t *testing.T) {

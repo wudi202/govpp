@@ -4,6 +4,27 @@
             ["u64", "packets"],
             ["u64", "bytes"],
             {"crc" : "0x62db67f0"}
+        ],
+        ["vnet_combined_counter",
+            ["u32", "sw_if_index"],
+            ["u64", "rx_packets"],
+            ["u64", "rx_bytes"],
+            ["u64", "tx_packets"],
+            ["u64", "tx_bytes"],
+            {"crc" : "0x0f3c951b"}
+        ],
+        ["vnet_simple_counter",
+            ["u32", "sw_if_index"],
+            ["u64", "drop"],
+            ["u64", "punt"],
+            ["u64", "rx_ip4"],
+            ["u64", "rx_ip6"],
+            ["u64", "rx_no_buffer"],
+            ["u64", "rx_miss"],
+            ["u64", "rx_error"],
+            ["u64", "tx_error"],
+            ["u64", "rx_mpls"],
+            {"crc" : "0x84763938"}
         ]
     ],
     "messages" : [
@@ -13,9 +34,7 @@
             ["u32", "context"],
             ["u32", "sw_if_index"],
             ["u8", "admin_up_down"],
-            ["u8", "link_up_down"],
-            ["u8", "deleted"],
-            {"crc" : "0xc230f9b1"}
+            {"crc" : "0xf890584a"}
         ],
         ["sw_interface_set_flags_reply",
             ["u16", "_vl_msg_id"],
@@ -36,6 +55,16 @@
             ["u32", "context"],
             ["i32", "retval"],
             {"crc" : "0x0cc22552"}
+        ],
+        ["sw_interface_event",
+            ["u16", "_vl_msg_id"],
+            ["u32", "client_index"],
+            ["u32", "pid"],
+            ["u32", "sw_if_index"],
+            ["u8", "admin_up_down"],
+            ["u8", "link_up_down"],
+            ["u8", "deleted"],
+            {"crc" : "0xbf7f46f2"}
         ],
         ["want_interface_events",
             ["u16", "_vl_msg_id"],
@@ -158,6 +187,20 @@
             ["vl_api_vlib_counter_t", "data", 0, "count"],
             {"crc" : "0xd82426e3"}
         ],
+        ["vnet_per_interface_simple_counters",
+            ["u16", "_vl_msg_id"],
+            ["u32", "count"],
+            ["u32", "timestamp"],
+            ["vl_api_vnet_simple_counter_t", "data", 0, "count"],
+            {"crc" : "0x7df05633"}
+        ],
+        ["vnet_per_interface_combined_counters",
+            ["u16", "_vl_msg_id"],
+            ["u32", "count"],
+            ["u32", "timestamp"],
+            ["vl_api_vnet_combined_counter_t", "data", 0, "count"],
+            {"crc" : "0xbf35dfbe"}
+        ],
         ["sw_interface_set_unnumbered",
             ["u16", "_vl_msg_id"],
             ["u32", "client_index"],
@@ -216,5 +259,5 @@
             {"crc" : "0x9dc8a452"}
         ]
     ],
-"vl_api_version" :"0xcdfdf626"
+"vl_api_version" :"0x89847d0a"
 }
